@@ -9,11 +9,17 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@main
-    - uses: jakejarvis/s3-sync-action@main
+    - name: Upload Report
+      uses: actions/upload-artifact@v2
       with:
-        args: --acl public-read --follow-symlinks --delete --exclude '.git*/*'
-      env:
-        AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          name: App
+          path: ./Android/app-debug.apk
+          
+    - name: Upload S3    
+      uses: shallwefootball/s3-upload-action@master
+      id: S3
+      with:
+          aws_key_id: ${{secrets.AWS_KEY_ID}}
+          aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+          aws_bucket: bucketName
+          source_dir:  ./Android/app-debug.apk
