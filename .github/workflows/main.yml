@@ -13,7 +13,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
           name: App
-          path: ./Android/app-debug.apk
+          path: /Android/app-debug.apk
           
     - name: Upload S3    
       uses: shallwefootball/s3-upload-action@master
@@ -22,4 +22,4 @@ jobs:
           aws_key_id: ${{secrets.AWS_KEY_ID}}
           aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
           aws_bucket: bucketName
-          source_dir:  ./Android/app-debug.apk
+          source_dir:  /Android/app-debug.apk
