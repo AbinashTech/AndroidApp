@@ -9,11 +9,11 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: Upload Report
-      uses: actions/upload-artifact@v2
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v2.2.4
       with:
-          name: App
-          path: /Android/app-debug.apk
+          name: app
+          path: ./Android/app-debug.apk
           
     - name: Upload S3    
       uses: shallwefootball/s3-upload-action@master
@@ -21,5 +21,5 @@ jobs:
       with:
           aws_key_id: ${{secrets.AWS_KEY_ID}}
           aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
-          aws_bucket: bucketName
-          source_dir:  /Android/app-debug.apk
+          aws_bucket:  ${{secrets.AWS_S3_BUCKET}}
+          source_dir:  ./Android/app-debug.apk
