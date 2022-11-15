@@ -16,7 +16,7 @@ jobs:
           path: ./Android/app-debug.apk
           
     - name: Upload S3    
-      uses: shallwefootball/s3-upload-action@main
+      uses: shallwefootball/s3-upload-action@master
       id: S3
       with:
           aws_key_id: ${{secrets.AWS_KEY_ID}}
